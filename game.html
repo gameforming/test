@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voetbalwedstrijd</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<a href="index.html">⚽ RONDEVOETBAL</a>
+<nav>
+<a href="index.html">Home</a>
+<a href="game.html">Spelen</a>
+<a href="club.html">Spelers & Packs</a>
+</nav>
+</header>
+
+<main class="layout">
+<section>
+
+<div class="bar">
+<b id="score">JIJ 0 — 0 CPU</b>
+<b id="clock">90</b>
+<b id="coins">🪙 0</b>
+</div>
+
+<canvas id="field" width="960" height="600"></canvas>
+
+<p class="muted">
+WASD / pijltjes = bewegen<br>
+Muis = richten<br>
+Spatie = schieten<br>
+Shift = sprinten
+</p>
+
+<button id="restart">Nieuwe wedstrijd</button>
+
+<span id="message">Pak de bal en scoor!</span>
+
+</section>
+
+<aside>
+<h2>Jouw team</h2>
+<div id="lineup"></div>
+<a class="btn secondary" href="club.html">
+Spelers beheren
+</a>
+</aside>
+</main>
+
+<script src="shared.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
