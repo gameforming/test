@@ -1,0 +1,151 @@
+const $ = id => document.getElementById(id);
+
+function render() {
+
+  $("coins").textContent=club.coins;
+
+  $("players").innerHTML=club.players
+    .slice()
+    .sort((a,b)=>b.rating-a.rating)
+    .map(p=>`
+      <div class="player">
+
+        <span class="circle"
+          style="background:${p.color}">
+          ${p.rating}
+        </span>
+
+        <span>
+          <b>${p.name}</b>
+
+          <small>${rarity(p.rating)}</small>
+
+          <small>
+            Snel ${p.speed} ·
+            Bal ${p.tackle} ·
+            Schot ${p.accuracy}
+          </small>
+        </span>
+
+      </div>
+    `).join("");
+
+  $("upgrades").innerHTML=club.players
+    .slice()
+    .sort((a,b)=>b.rating-a.rating)
+    .map(p=>`
+      <div class="upgrade">
+
+        <span>
+          <b>${p.name} (${p.rating})</b>
+        </span>
+
+        <span>
+          <button data-id="${p.id}" data-s="speed">
+            Snel+
+          </button>
+
+          <button data-id="${p.id}" data-s="tackle">
+            Bal+
+          </button>
+
+          <button data-id="${p.id}" data-s="accuracy">
+            Schot+
+          </button>
+        </span>
+
+      </div>
+    `).join("");
+
+  document.querySelectorAll("[data-s]")
+    .forEach(b=>{
+
+      b.onclick=()=>{
+
+        if(club.coins<40) {
+          $("result").textContent="Niet genoeg munten!";
+          return;
+        }
+
+        const p=club.players.find(
+          p=>p.id==b.dataset.id
+        );
+
+        p[b.dataset.s]++;
+        p.rating++;
+        club.coins-=40;
+
+        saveClub();
+        render();
+
+        $("result").textContent=
+          p.name+" is geüpgraded!";
+      };
+    });
+}
+
+$("pack").onclick=()=>{
+
+  if(club.coins<100) {
+    $("result").textContent="Niet genoeg munten!";
+    return;
+  }
+
+  club.coins-=100;
+
+  const n=Math.random();
+
+  let r;
+
+  if(n<0.03)
+    r=90+Math.floor(Math.random()*11);
+
+  else if(n<0.15)
+    r=70+Math.floor(Math.random()*20);
+
+  else if(n<0.45)
+    r=45+Math.floor(Math.random()*25);
+
+  else
+    r=8+Math.floor(Math.random()*37);
+
+  const names=[
+    "Nova","Blitz","Comet","Vortex",
+    "Echo","Phantom","Raptor","Pixel",
+    "Storm","Ace"
+  ];
+
+  const p={
+    id:Date.now()+Math.random(),
+    name:names[Math.floor(Math.random()*names.length)],
+    rating:r,
+
+    color:r>=90?"#ff8bea":
+          r>=70?"#ffd166":
+          r>=45?"#80d8ff":"#b8c9ce",
+
+    speed:0,
+    tackle:0,
+    accuracy:0
+  };
+
+  club.players.push(p);
+
+  saveClub();
+  render();
+
+  $("result").innerHTML=`
+    <h2>${rarity(r)} PULL!</h2>
+
+    <span class="circle"
+      style="background:${p.color};margin:10px">
+      ${r}
+    </span>
+
+    <h3>${p.name}</h3>
+
+    Nieuwe speler toegevoegd!
+  `;
+};
+
+render();
