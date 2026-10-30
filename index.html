@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rondevoetbal — Arena</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div><h1>RONDEVOETBAL</h1><p>Een simpel voetbalspel met packs, upgrades en zeldzame spelers.</p></div><div class="topstats"><span>Munten <b id="coins">0</b></span><span>Overwinningen <b id="wins">0</b></span></div></header>
+<main>
+<section class="game-wrap">
+ <div class="hud"><span id="score">Jij 0 — 0 CPU</span><span id="clock">90</span><span id="status">WASD bewegen · Spatie schieten</span></div>
+ <canvas id="game" width="960" height="600" aria-label="Voetbalveld"></canvas>
+ <div class="controls"><span><kbd>WASD</kbd>/<kbd>←↑↓→</kbd> bewegen</span><span><kbd>SPATIE</kbd> schieten</span><span><kbd>SHIFT</kbd> sprinten</span><button id="restart">Nieuwe wedstrijd</button></div>
+</section>
+<aside>
+ <section class="panel"><h2>Jouw selectie</h2><div id="squad"></div></section>
+ <section class="panel"><h2>Spelers upgraden</h2><p class="muted">Geef een speler punten voor snelheid, balverovering of schietnauwkeurigheid.</p><div id="upgradeList"></div></section>
+ <section class="panel packs"><h2>Spelers packs</h2><p>Open een pack en trek een nieuwe speler. Hogere nummers zijn sterker en zeldzamer.</p><button id="pack">Open pack · 100 munten</button><div id="pull" class="pull">Jouw volgende speler verschijnt hier.</div></section>
+</aside>
+</main>
+<footer>Tip: je bestuurt automatisch de speler met de bal, of anders degene die het dichtst bij de bal staat.</footer>
+<script src="game.js"></script>
+</body></html>
